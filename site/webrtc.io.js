@@ -170,10 +170,11 @@ if (navigator.webkitGetUserMedia) {
       };
 
       rtc.on('get_peers', function(data) {
+        console.log('get peers and assign connections to rtc.connections: \n', data);
         rtc.connections = data.connections;
         rtc._me = data.you;
         // fire connections event and pass peers
-        rtc.fire('connections', rtc.connections);
+        // rtc.fire('connections', rtc.connections);
       });
 
       rtc.on('receive_ice_candidate', function(data) {
@@ -183,6 +184,7 @@ if (navigator.webkitGetUserMedia) {
       });
 
       rtc.on('new_peer_connected', function(data) {
+        console.log('new peer connected');
         rtc.connections.push(data.socketId);
 
         var pc = rtc.createPeerConnection(data.socketId);
@@ -248,7 +250,7 @@ if (navigator.webkitGetUserMedia) {
           }
         }));
       }
-      rtc.fire('ice candidate', event.candidate);
+      // rtc.fire('ice candidate', event.candidate);
     };
 
     pc.onopen = function() {

@@ -177,7 +177,8 @@ function initChat() {
 function init() {
   if(PeerConnection) {
     rtc.createStream({
-      "video": {"mandatory": {}, "optional": []},
+      // "video": {"mandatory": {}, "optional": []},
+      "video": false,
       "audio": true
     }, function(stream) {
       document.getElementById('you').src = URL.createObjectURL(stream);
@@ -202,10 +203,12 @@ function init() {
     rtc.attachStream(stream, clone.id);
     subdivideVideos();
   });
+
   rtc.on('disconnect stream', function(data) {
     console.log('remove ' + data);
     removeVideo(data);
   });
+  
   initFullScreen();
   initNewRoom();
   initChat();
